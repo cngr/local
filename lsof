@@ -1,0 +1,16 @@
+# description	: list open files
+
+name=lsof
+version=4.98.0
+release=1
+source="https://github.com/lsof-org/lsof/archive/$version/$name-$version.tar.gz"
+
+build() {
+	cd $name-$version
+
+	./Configure -n linux
+	make CC="cc $CFLAGS"
+
+	install -d $PKG/usr/{sbin,share/man/man8}
+	install -m 755 lsof $PKG/usr/sbin
+}
