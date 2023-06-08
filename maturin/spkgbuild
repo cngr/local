@@ -1,0 +1,16 @@
+# description	: Build and publish crates with pyo3, rust-cpython and cffi bindings
+
+name=maturin
+version=1.0.1
+release=1
+source="https://github.com/PyO3/maturin/archive/v$version/$name-$version.tar.gz"
+prepare() {
+  cd $name-$version
+  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+}
+build() {
+  cd $name-$version
+  /usr/bin/python3 setup.py build
+  /usr/bin/python3 setup.py install --root=$PKG
+
+}
